@@ -187,6 +187,7 @@ public class CadastrarClientes extends javax.swing.JFrame {
             db.conectarNoBanco();
             db.salvarClienteBD(nome.getText(), idadeCliente, getSelectedButtonText(buttonGroup1), cpfCliente, idCliente, null);
             super.dispose();
+            db.desconectarDoBanco();
         }
         catch(Exception e)
         {

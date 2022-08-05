@@ -28,8 +28,46 @@ public class DBController {
     public void desconectarDoBanco() throws SQLException{
         this.dbConn.close();
     }
- 
-           
+    public void atualizarMoto(Date dataEntrega, String placa) throws SQLException, Exception{
+        String where = "UPDATE motos SET estadoAlugado = ?, dataEntregar = ? WHERE placa = ?";
+        PreparedStatement stmt;
+        try{ 
+            Connection conn = this.connect();
+            stmt = conn.prepareStatement(where);
+            stmt.setBoolean(1, true);
+            stmt.setDate(2, dataEntrega);
+            stmt.setString(3, placa);
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            throw new Exception("Erro ao atualizar: " + e.getMessage());
+        }
+    }
+    public void atualizarCarro(Date dataEntrega, String placa) throws SQLException, Exception{
+        String where = "UPDATE carros SET estadoAlugado = ?, dataEntregar = ? WHERE placa = ?";
+        PreparedStatement stmt;
+        try{ 
+            stmt = this.dbConn.prepareStatement(where);
+            stmt.setBoolean(1, true);
+            stmt.setDate(2, dataEntrega);
+            stmt.setString(3, placa);
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            throw new Exception("Erro ao atualizar: " + e.getMessage());
+        }
+    }
+    
+    public void atualizarCliente(String placa, String cpf) throws SQLException, Exception{
+        String where = "UPDATE clientes SET placaVeiculoAlugado = ? WHERE cpf = ?";
+        PreparedStatement stmt;
+        try{
+            stmt = this.dbConn.prepareStatement(where);
+            stmt.setString(1, placa);
+            stmt.setString(2, cpf);
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            throw new Exception("Erro ao atualizar: " + e.getMessage());
+        }
+    }
     public void salvarCarroBD(String placa, String modelo, String marca, int potencia, double preco, boolean alugado, Date alugadoEm, Date alugadoAte, String classificacao, int idCliente, String nomeCliente) throws Exception{
         String ins = "INSERT INTO carros (placa, modelo, marca, potencia, classificacao, idCliente, estadoAlugado, dataAlugado, dataEntregar, preco) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt;
@@ -104,7 +142,7 @@ public class DBController {
     }
     
     public ResultSet carregarInfosCarros() throws Exception{
-        String select = "SELECT placa, modelo, marca, potencia, classificacao, idCliente, estadoAlugado, dataAlugado, dataEntregar, preco FROM carros";
+        String select = "SELECT * FROM carros";
         ResultSet rset = null;
         
         try{
@@ -117,7 +155,7 @@ public class DBController {
         return rset;
     }
     public ResultSet carregarInfosMotos() throws Exception{
-        String select = "SELECT placa, modelo, marca, potencia, classificacao, idCliente, estadoAlugado, dataAlugado, dataEntregar, preco FROM motos";
+        String select = "SELECT * FROM motos";
         ResultSet rset = null;
         try{
             Connection conn = this.connect();
@@ -129,7 +167,7 @@ public class DBController {
         return rset;
     }
     public ResultSet carregarInfosClientes() throws Exception{
-        String select = "SELECT nome, idade, sexo, alugando,idAlugado FROM clientes";
+        String select = "SELECT * FROM clientes";
         ResultSet rset = null;
         try{
             Statement stmt = this.dbConn.createStatement();
@@ -162,10 +200,8 @@ public class DBController {
                  {
                     innerList.add("Disponível");                    
                  }
-
-                 listOfLists.add(innerList);
                  innerList.add(rs.getString("idCliente"));
-
+                 listOfLists.add(innerList);
              }
        }
        catch(Exception e)
@@ -198,10 +234,9 @@ public class DBController {
                  {
                     innerList.add("Disponível");                    
                  }
-
-                 listOfLists.add(innerList);
+                 
                  innerList.add(rs.getString("idCliente"));
-
+                 listOfLists.add(innerList);
              }
        }
        catch(Exception e)
@@ -211,5 +246,4 @@ public class DBController {
        
        return listOfLists;
     }
-     
 }
