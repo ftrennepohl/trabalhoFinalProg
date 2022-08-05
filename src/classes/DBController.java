@@ -3,6 +3,9 @@ package classes;
 import java.io.*;
 import java.sql.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DBController {
     private String dbNome;
@@ -27,44 +30,42 @@ public class DBController {
     }
  
            
-    public void salvarCarroBD(int idCarro, String modelo, String marca, int potencia, double preco, boolean alugado, Date alugadoEm, Date alugadoAte, String classificacao, int idCliente, String nomeCliente) throws Exception{
-        String ins = "INSERT INTO carros (idCarro, modelo, marca, potencia, classificacao, idCliente, nomeCliente, estadoAlugado, dataAlugado, dataEntregar, preco values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void salvarCarroBD(String placa, String modelo, String marca, int potencia, double preco, boolean alugado, Date alugadoEm, Date alugadoAte, String classificacao, int idCliente, String nomeCliente) throws Exception{
+        String ins = "INSERT INTO carros (placa, modelo, marca, potencia, classificacao, idCliente, estadoAlugado, dataAlugado, dataEntregar, preco) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         try {
             stmt = this.dbConn.prepareStatement(ins);
-            stmt.setInt(1, idCarro);
+            stmt.setString(1, placa);
             stmt.setString(2, modelo);
             stmt.setString(3, marca);
             stmt.setInt(4, potencia);
             stmt.setString(5, classificacao);
             stmt.setInt(6, idCliente);
-            stmt.setString(7, nomeCliente);
-            stmt.setBoolean(8, alugado);
-            stmt.setDate(9, alugadoEm);
-            stmt.setDate(10, alugadoAte);
-            stmt.setDouble(11, preco);
+            stmt.setBoolean(7, alugado);
+            stmt.setDate(8, alugadoEm);
+            stmt.setDate(9, alugadoAte);
+            stmt.setDouble(10, preco);
             stmt.executeUpdate();
         } catch(SQLException e) {
             throw new Exception("Erro ao inserir carro: " + e.getMessage());
         }
     }
     
-    public void salvarMotoBD(int idMoto, String modelo, String marca, int potencia, double preco, boolean alugado, Date alugadoEm, Date alugadoAte, String classificacao, int idCliente, String nomeCliente) throws Exception{
-        String ins = "INSERT INTO carros (idMoto, modelo, marca, potencia, classificacao, idCliente, nomeCliente, estadoAlugado, dataAlugado, dataEntregar, preco values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void salvarMotoBD(String placa, String modelo, String marca, int potencia, double preco, boolean alugado, Date alugadoEm, Date alugadoAte, String classificacao, int idCliente, String nomeCliente) throws Exception{
+        String ins = "INSERT INTO motos (placa, modelo, marca, potencia, classificacao, idCliente, estadoAlugado, dataAlugado, dataEntregar, preco) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         try {
             stmt = this.dbConn.prepareStatement(ins);
-            stmt.setInt(1, idMoto);
+            stmt.setString(1, placa);
             stmt.setString(2, modelo);
             stmt.setString(3, marca);
             stmt.setInt(4, potencia);
             stmt.setString(5, classificacao);
             stmt.setInt(6, idCliente);
-            stmt.setString(7, nomeCliente);
-            stmt.setBoolean(8, alugado);
-            stmt.setDate(9, alugadoEm);
-            stmt.setDate(10, alugadoAte);
-            stmt.setDouble(11, preco);
+            stmt.setBoolean(7, alugado);
+            stmt.setDate(8, alugadoEm);
+            stmt.setDate(9, alugadoAte);
+            stmt.setDouble(10, preco);
             stmt.executeUpdate();
         } catch(SQLException e) {
             throw new Exception("Erro ao inserir carro: " + e.getMessage());
@@ -88,12 +89,27 @@ public class DBController {
         }
     }
     
+    
+    
+    private Connection connect() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:" + this.dbNome;
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
+    
     public ResultSet carregarInfosCarros() throws Exception{
-        String select = "SELECT idCarro, modelo, marca, potencia, classificacao, idCliente, nomeCliente, estadoAlugado, dataAlugado, dataEntregar, preco FROM carros";
+        String select = "SELECT placa, modelo, marca, potencia, classificacao, idCliente, estadoAlugado, dataAlugado, dataEntregar, preco FROM carros";
         ResultSet rset = null;
         
         try{
-            Statement stmt = this.dbConn.createStatement();
+            Connection conn = this.connect();
+            Statement stmt = conn.createStatement();
             rset = stmt.executeQuery(select);
         } catch(SQLException e){
             throw new Exception("Erro ao buscar a palavra: " + e.getMessage());
@@ -101,10 +117,11 @@ public class DBController {
         return rset;
     }
     public ResultSet carregarInfosMotos() throws Exception{
-        String select = "SELECT idMoto, modelo, marca, potencia, classificacao, idCliente, nomeCliente, estadoAlugado, dataAlugado, dataEntregar, preco FROM carros";
+        String select = "SELECT placa, modelo, marca, potencia, classificacao, idCliente, estadoAlugado, dataAlugado, dataEntregar, preco FROM motos";
         ResultSet rset = null;
         try{
-            Statement stmt = this.dbConn.createStatement();
+            Connection conn = this.connect();
+            Statement stmt = conn.createStatement();
             rset = stmt.executeQuery(select);
         } catch(SQLException e){
             throw new Exception("Erro ao buscar a palavra: " + e.getMessage());
@@ -122,4 +139,77 @@ public class DBController {
         }
         return rset;
     }
+    
+    public List<List<String>> selectAllCarros(){
+       List<List<String>> listOfLists = new ArrayList<>();
+        
+
+       try{
+            ResultSet rs = carregarInfosCarros();
+
+             // loop through the result set
+             while (rs.next()) {
+                 List<String> innerList = new ArrayList<>();
+                 innerList.add(rs.getString("marca"));
+                 innerList.add(rs.getString("modelo"));
+                 innerList.add(rs.getString("preco"));
+                 innerList.add(rs.getString("dataEntregar"));
+                 if(rs.getBoolean("estadoAlugado"))
+                 {
+                    innerList.add("Alugado");
+                 }
+                 else
+                 {
+                    innerList.add("Disponível");                    
+                 }
+
+                 listOfLists.add(innerList);
+                 innerList.add(rs.getString("idCliente"));
+
+             }
+       }
+       catch(Exception e)
+       {
+           e.printStackTrace();
+       }
+       
+       return listOfLists;
+    }
+    
+     public List<List<String>> selectAllMotos(){
+       List<List<String>> listOfLists = new ArrayList<>();
+        
+
+       try{
+            ResultSet rs = carregarInfosMotos();
+
+             // loop through the result set
+             while (rs.next()) {
+                 List<String> innerList = new ArrayList<>();
+                 innerList.add(rs.getString("marca"));
+                 innerList.add(rs.getString("modelo"));
+                 innerList.add(rs.getString("preco"));
+                 innerList.add(rs.getString("dataEntregar"));
+                 if(rs.getBoolean("estadoAlugado"))
+                 {
+                    innerList.add("Alugado");
+                 }
+                 else
+                 {
+                    innerList.add("Disponível");                    
+                 }
+
+                 listOfLists.add(innerList);
+                 innerList.add(rs.getString("idCliente"));
+
+             }
+       }
+       catch(Exception e)
+       {
+           e.printStackTrace();
+       }
+       
+       return listOfLists;
+    }
+     
 }

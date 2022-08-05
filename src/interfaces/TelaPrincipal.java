@@ -3,6 +3,7 @@ package interfaces;
 import classes.DBController;
 import java.awt.Color;
 import java.sql.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,21 +31,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
-        btnCadastrar2 = new javax.swing.JButton();
+        btnRecebeVeiculo = new javax.swing.JButton();
+        btnCadastrar3 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCarros = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         btnAlugar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        jTableMotos = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jTableAlugados = new javax.swing.JTable();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,22 +90,41 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnCadastrar2.setBackground(new java.awt.Color(16, 16, 16));
-        btnCadastrar2.setText("Cadastrar Cliente");
-        btnCadastrar2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
-        btnCadastrar2.setContentAreaFilled(false);
-        btnCadastrar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadastrar2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRecebeVeiculo.setBackground(new java.awt.Color(16, 16, 16));
+        btnRecebeVeiculo.setText("Receber Veículo");
+        btnRecebeVeiculo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        btnRecebeVeiculo.setContentAreaFilled(false);
+        btnRecebeVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRecebeVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCadastrar2MouseEntered(evt);
+                btnRecebeVeiculoMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCadastrar2MouseExited(evt);
+                btnRecebeVeiculoMouseExited(evt);
             }
         });
-        btnCadastrar2.addActionListener(new java.awt.event.ActionListener() {
+        btnRecebeVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrar2ActionPerformed(evt);
+                btnRecebeVeiculoActionPerformed(evt);
+            }
+        });
+
+        btnCadastrar3.setBackground(new java.awt.Color(16, 16, 16));
+        btnCadastrar3.setText("Cadastrar Cliente");
+        btnCadastrar3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        btnCadastrar3.setContentAreaFilled(false);
+        btnCadastrar3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCadastrar3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCadastrar3MouseExited(evt);
+            }
+        });
+        btnCadastrar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrar3ActionPerformed(evt);
             }
         });
 
@@ -115,10 +136,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCadastrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCadastrar3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRecebeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +150,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRecebeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCadastrar3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -135,7 +159,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Veiculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jTabbedPane1.setToolTipText("");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCarros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -143,9 +167,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 "Marca", "Modelo", "Preço", "Data livre/Ocupado", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableCarros);
+        if (jTableCarros.getColumnModel().getColumnCount() > 0) {
+            jTableCarros.getColumnModel().getColumn(0).setHeaderValue("Marca");
+            jTableCarros.getColumnModel().getColumn(1).setHeaderValue("Modelo");
+            jTableCarros.getColumnModel().getColumn(2).setHeaderValue("Preço");
+            jTableCarros.getColumnModel().getColumn(3).setHeaderValue("Data livre/Ocupado");
+            jTableCarros.getColumnModel().getColumn(4).setHeaderValue("Status");
+        }
 
         jButton1.setText("Pesquisar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnAlugar.setText("Alugar");
         btnAlugar.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +216,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Carros", jPanel2);
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        jTableMotos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -188,9 +224,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 "Marca", "Modelo", "Preço", "Data livre/Ocupado", "Status"
             }
         ));
-        jScrollPane5.setViewportView(jTable5);
+        jScrollPane5.setViewportView(jTableMotos);
 
         jButton4.setText("Pesquisar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -215,8 +256,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTabbedPane1.addTab("Motos", jPanel3);
 
         jButton2.setText("Pesquisar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAlugados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -224,7 +270,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 "ID", "Marca", "Modelo", "Preço", "Data Alugado", "Status"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(jTableAlugados);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -285,23 +331,85 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnCadastrar.setBackground(Color.getHSBColor(0, 0, 0));
     }//GEN-LAST:event_btnCadastrarMouseExited
 
-    private void btnCadastrar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrar2MouseEntered
-        btnCadastrar2.setContentAreaFilled(false);
-        btnCadastrar2.setOpaque(true);
-        btnCadastrar2.setBackground(Color.DARK_GRAY);
-    }//GEN-LAST:event_btnCadastrar2MouseEntered
+    private void btnRecebeVeiculoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecebeVeiculoMouseEntered
+        btnRecebeVeiculo.setContentAreaFilled(false);
+        btnRecebeVeiculo.setOpaque(true);
+        btnRecebeVeiculo.setBackground(Color.DARK_GRAY);
+    }//GEN-LAST:event_btnRecebeVeiculoMouseEntered
 
-    private void btnCadastrar2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrar2MouseExited
-        btnCadastrar2.setBackground(Color.getHSBColor(0, 0, 0));
-    }//GEN-LAST:event_btnCadastrar2MouseExited
+    private void btnRecebeVeiculoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecebeVeiculoMouseExited
+        btnRecebeVeiculo.setBackground(Color.getHSBColor(0, 0, 0));
+    }//GEN-LAST:event_btnRecebeVeiculoMouseExited
 
-    private void btnCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrar2ActionPerformed
-        new CadastrarClientes().setVisible(true);
-    }//GEN-LAST:event_btnCadastrar2ActionPerformed
+    private void btnRecebeVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecebeVeiculoActionPerformed
+        new DevolverVeiculo().setVisible(true);
+    }//GEN-LAST:event_btnRecebeVeiculoActionPerformed
 
     private void btnAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugarActionPerformed
         new AlugarVeiculo().setVisible(true);
     }//GEN-LAST:event_btnAlugarActionPerformed
+
+    private void btnCadastrar3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrar3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadastrar3MouseEntered
+
+    private void btnCadastrar3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrar3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadastrar3MouseExited
+
+    private void btnCadastrar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrar3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadastrar3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        DBController db = new DBController("dbTrab.db");
+        DefaultTableModel dtm = (DefaultTableModel) jTableCarros.getModel();
+        dtm.setRowCount(0);
+        List<List<String>> list = db.selectAllCarros();
+        for(int i = 0; i < list.size(); i++)
+        {
+            String data[] = {list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)};
+            DefaultTableModel model = (DefaultTableModel) jTableCarros.getModel();
+            model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)});
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+        DBController db = new DBController("dbTrab.db");
+        DefaultTableModel dtm = (DefaultTableModel) jTableMotos.getModel();
+        dtm.setRowCount(0);
+        List<List<String>> list = db.selectAllMotos();
+        for(int i = 0; i < list.size(); i++)
+        {
+            String data[] = {list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)};
+            DefaultTableModel model = (DefaultTableModel) jTableMotos.getModel();
+            model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)});
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DBController db = new DBController("dbTrab.db");
+        DefaultTableModel dtm = (DefaultTableModel) jTableAlugados.getModel();
+        dtm.setRowCount(0);
+        List<List<String>> list = db.selectAllMotos();
+        for(int i = 0; i < list.size(); i++)
+        {
+            if(list.get(i).get(4).equals("Alugado")){
+                DefaultTableModel model = (DefaultTableModel) jTableAlugados.getModel();
+                model.addRow(new Object[]{list.get(i).get(5),list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)});
+            }
+        }
+        
+        List<List<String>> list2 = db.selectAllCarros();
+        for(int j = 0; j < list2.size(); j++)
+        {
+            if(list2.get(j).get(4).equals("Alugado")){
+                DefaultTableModel model = (DefaultTableModel) jTableAlugados.getModel();
+                model.addRow(new Object[]{list2.get(j).get(5), list2.get(j).get(0), list2.get(j).get(1), list2.get(j).get(2), list2.get(j).get(3), list2.get(j).get(4)});
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /*
      * @param args the command line arguments
@@ -334,7 +442,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlugar;
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnCadastrar2;
+    private javax.swing.JButton btnCadastrar3;
+    private javax.swing.JButton btnRecebeVeiculo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -348,9 +457,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable5;
+    private javax.swing.JTable jTableAlugados;
+    private javax.swing.JTable jTableCarros;
+    private javax.swing.JTable jTableMotos;
     // End of variables declaration//GEN-END:variables
 }

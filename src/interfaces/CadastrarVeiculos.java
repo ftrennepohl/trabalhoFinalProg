@@ -5,8 +5,10 @@
 package interfaces;
 import classes.Vehicle;
 import classes.Carro;
+import classes.DBController;
 import classes.Moto;
 import interfaces.TelaPrincipal;
+import java.sql.Date;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author willian
  */
-public class CadastrarVeiculos extends javax.swing.JFrame {
+public class CadastrarVeiculos extends javax.swing.JFrame{
 
     /**
      * Creates new form CadastrarVeiculos
@@ -340,24 +342,27 @@ public class CadastrarVeiculos extends javax.swing.JFrame {
             int pot = Integer.parseInt(potencia.getText());
             Carro veiculo1 = null;
             Moto veiculo2 = null;
-
+            DBController db = new DBController("dbTrab.db");
+            Date data = null;
+            
             if(isCarro.isSelected())
             {
-
                 veiculo1 = new Carro(modelo.getText(), marca.getText(), Double.parseDouble(preco.getText()),tipo, pot, placa.getText());
+                db.conectarNoBanco();
+                db.salvarCarroBD(placa.getText(), modelo.getText(), marca.getText(), pot, Double.parseDouble(preco.getText()), false, data, data, tipo, 0, "");
             }
             else
             {
-
                 veiculo2 = new Moto(modelo.getText(), marca.getText(), Integer.parseInt(preco.getText()),tipo, pot, placa.getText());
-                //Fazer aqui o código que adiciona na tabela
+                db.conectarNoBanco();
+                db.salvarMotoBD(placa.getText(), modelo.getText(), marca.getText(), pot, Double.parseDouble(preco.getText()), false, data, data, tipo, 0, "");
             }
+            super.dispose();
         }
         catch (Exception e)
         {
             JOptionPane.showMessageDialog(null, "Erro ao preencher formulário");
         }
-
     }//GEN-LAST:event_cadastrarVeiculoActionPerformed
 
     private void placaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placaActionPerformed

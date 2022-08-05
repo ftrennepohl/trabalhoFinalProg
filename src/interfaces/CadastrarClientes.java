@@ -186,11 +186,13 @@ public class CadastrarClientes extends javax.swing.JFrame {
             Cliente cliente  = new Cliente(idCliente, nome.getText(), getSelectedButtonText(buttonGroup1), idadeCliente, cpfCliente, "");
             db.conectarNoBanco();
             db.salvarClienteBD(nome.getText(), idadeCliente, getSelectedButtonText(buttonGroup1), cpfCliente, idCliente, null);
+            super.dispose();
         }
         catch(Exception e)
         {
             JOptionPane.showMessageDialog(null, "Erro ao preencher formulário");
         }
+        
     }//GEN-LAST:event_cadastrarVeiculoActionPerformed
 
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
