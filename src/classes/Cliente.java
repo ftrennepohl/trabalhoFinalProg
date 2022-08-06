@@ -16,8 +16,9 @@ public class Cliente {
     private String sexo;
     private int idade;
     private String placaVeiculoAlugado;
+    private String tipoCnh;
     
-    public Cliente(int clienteId, String nome, String sexo, int idade, String cpf, String placa) throws Exception{
+    public Cliente(int clienteId, String nome, String sexo, int idade, String cpf, String placa, String tipoCnh) throws Exception{
         this.clienteId = clienteId;
         this.nome = nome;
         if (sexo.equals("M") || sexo.equals("F")) this.sexo = sexo;
@@ -26,6 +27,8 @@ public class Cliente {
         this.placaVeiculoAlugado = placa;
         if (cpfEValido(cpf))this.cpf = cpf;
         else throw new Exception("CPF inválido");
+        if(tipoCnhEValido(tipoCnh)) this.tipoCnh = tipoCnh;
+        else throw new Exception("Tipo de CNH inválido.");
     }
     
     public static boolean cpfEValido(String cpf){
@@ -48,6 +51,10 @@ public class Cliente {
             k++;
         }
         return cpf.charAt(9) == aux[9] && cpf.charAt(10) == aux[10];
+    }
+    
+    private boolean tipoCnhEValido(String cnh){
+        return cnh.equals("A") || cnh.equals("B") || cnh.equals("AB");
     }
     
     

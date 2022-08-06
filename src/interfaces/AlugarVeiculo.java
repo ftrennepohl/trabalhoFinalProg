@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.time.Month;
 import javax.sound.midi.Soundbank;
+import javax.swing.JFrame;
 /**
  *
  * @author gusta
@@ -57,6 +58,21 @@ public class AlugarVeiculo extends javax.swing.JFrame {
         db.desconectarDoBanco();
         return false;
     }
+    
+    private boolean tipoCorretoCnh(String cpf, String cnh) throws Exception{
+        DBController db = new DBController("dbTrab.db");
+        db.conectarNoBanco();
+        ResultSet rset = db.carregarInfosClientes();
+        while (rset.next()){
+            if(cpf.equalsIgnoreCase(rset.getString("cpf"))){
+                //db.desconectarDoBanco();
+                //return rset.getString("((nome do campo))").equals(cnh)  inserir nome campo CNH do BD
+                
+            }
+        }
+        return false;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -199,35 +215,29 @@ public class AlugarVeiculo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println("FJIOADWEJFOIAEWOJI");
         if (isCarro.isSelected()){
             try {
-                System.out.println("DEU ERRO NA PLACA");
                 if (existsPlacaCarro(placaVeiculo.getText())){
                     try {
-                        System.out.println("DEU ERRO NO CPF");
                         if (existsCPF(cpfCliente.getText())){
                             DBController db = new DBController("dbTrab.db");
-                            System.out.println("ELE PAROU ALI VVVVVVVVVVV");
                             db.conectarNoBanco();
-                            System.out.println("JFOEWAJFEWJAIOFOIEWAIOFEWOIJFEJWA");
                             String placa = placaVeiculo.getText();
                             String cpf = cpfCliente.getText();
                             db.atualizarCarro(transformToDate(dataEntrega.getText()), placa);
                             db.atualizarCliente(placa, cpf);
                             db.desconectarDoBanco();
                         }else{
-                            System.out.println("erro??");
+                            JOptionPane.showMessageDialog(new JFrame(),"CPF Inválido.");
                         }
                     }catch(Exception e){
-                        JOptionPane.showMessageDialog(null, "ER2");
                         System.out.println(e);
                     }
                 }else{
-                    System.out.println("KFEAWFJIOEAF");
+                    JOptionPane.showMessageDialog(new JFrame(),"Placa inválida.");
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "ER");
+                System.out.println(ex);
             }
         }
         if (isMoto.isSelected()){
