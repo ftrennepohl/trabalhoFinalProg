@@ -3,11 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package interfaces;
-import static classes.DBController.*;
+import classes.DBController;
+import classes.Update;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.midi.Soundbank;
 import javax.swing.JFrame;
 /**
@@ -19,44 +23,60 @@ public class AlugarVeiculo extends javax.swing.JFrame {
     /**
      * Creates new form AlugarVeiculo
      */
+    DBController db = new DBController("dbTrab.db");
+    private final List<List<String>> listaCarros= db.selectAllCarros();
+    private final List<List<String>> listaMotos= db.selectAllMotos();
+    private final List<List<String>> listaClientes= db.selectAllClientes();
+
+
     public AlugarVeiculo() {
         initComponents();
     }
     private boolean existsPlacaCarro(String placa) throws Exception{
-        ResultSet rset = carregarInfosCarros();
-        while (rset.next()){
-            if(placa.equalsIgnoreCase(rset.getString("placa"))){
+
+        for(int i = 0; i < this.listaCarros.size(); i++)
+        {
+            if(listaCarros.get(i).get(6).equals(placa))
+            {
                 return true;
             }
         }
         return false;
     }
-    private boolean existsPlaca(String placa) throws Exception{
-        ResultSet rset = carregarInfosMotos();
-        while (rset.next()){
-            if(placa.equalsIgnoreCase(rset.getString("placa"))) return true;
+    private boolean existsPlacaMoto(String placa) throws Exception{
+        for(int i = 0; i < this.listaMotos.size(); i++)
+        {
+            if(listaCarros.get(i).get(6).equals(placa))
+            {
+                return true;
+            }
         }
         return false;
     }
     private boolean existsCPF(String cpf) throws Exception{
-        ResultSet rset = carregarInfosClientes();
-        while (rset.next()){
-            if(cpf.equalsIgnoreCase(rset.getString("cpf"))) {
+        for(int i = 0; i < this.listaClientes.size(); i++)
+        {
+            if(listaClientes.get(i).get(3).equals(cpf))
+            {
                 return true;
             }
         }
         return false;
     }
     
-    private boolean tipoCorretoCnh(String cpf, String cnh) throws Exception{
-        ResultSet rset = carregarInfosClientes();
-        while (rset.next()){
-            if(cpf.equalsIgnoreCase(rset.getString("cpf"))){
-                return rset.getString("cnh").equals(cnh);
-            }
-        }
-        return false;
-    }
+//    private boolean tipoCorretoCnh(String cpf, String cnh) throws Exception{
+//        DBController db = new DBController("dbTrab.db");
+//        db.conectarNoBanco();
+//        ResultSet rset = db.carregarInfosClientes();
+//        while (rset.next()){
+//            if(cpf.equalsIgnoreCase(rset.getString("cpf"))){
+//                //db.desconectarDoBanco();
+//                //return rset.getString("((nome do campo))").equals(cnh)  inserir nome campo CNH do BD
+//                
+//            }
+//        }
+//        return false;
+//    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -201,49 +221,39 @@ public class AlugarVeiculo extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (isCarro.isSelected()){
+               System.out.println(placaVeiculo.getText());
             try {
-                if (existsPlacaCarro(placaVeiculo.getText())){
-                    try {
-                        if (existsCPF(cpfCliente.getText())){
-                            conectarNoBanco();
-                            String placa = placaVeiculo.getText();
-                            String cpf = cpfCliente.getText();
-                            atualizarCarro(transformToDate(dataEntrega.getText()), placa);
-                            atualizarCliente(placa, cpf);
-                            desconectarDoBanco();
-                        }else{
-                            JOptionPane.showMessageDialog(new JFrame(),"CPF Inválido.");
-                        }
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(new JFrame(),"Placa inválida.");
+                if (existsPlacaCarro(placaVeiculo.getText())&&existsCPF(cpfCliente.getText()))
+                {
+                    System.out.println(placaVeiculo.getText());
+                    System.out.println(cpfCliente.getText());
+                    Update app = new Update();
+                    app.updateCarros(transformToDate(dataEntrega.getText()), placaVeiculo.getText(), false);
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
         if (isMoto.isSelected()){
+               System.out.println(placaVeiculo.getText());
             try {
-                if (existsPlaca(placaVeiculo.getText())){
-                    try {
-                        if (existsCPF(cpfCliente.getText())){
-                            String cpf = cpfCliente.getText();
-                            String placa = placaVeiculo.getText();
-                            conectarNoBanco();
-                            atualizarMoto((dataEntrega.getText()), placa);
-                            atualizarCliente(placa, cpf);
-                            desconectarDoBanco();
-                        }
-                    }catch(Exception e){
-                        JOptionPane.showMessageDialog(null, "Erro ao preencher formulário");
-                    }
+                if (existsPlacaMoto(placaVeiculo.getText())&&existsCPF(cpfCliente.getText()))
+                {
+                    System.out.println(placaVeiculo.getText());
+                    System.out.println(cpfCliente.getText());
+                    Update app = new Update();
+                    app.updateMotos(transformToDate(dataEntrega.getText()), placaVeiculo.getText(), false);
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao preencher formulário");
+                Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
+        
+        super.dispose();
+
+         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private Date transformToDate(String str){
@@ -301,4 +311,6 @@ public class AlugarVeiculo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField placaVeiculo;
     // End of variables declaration//GEN-END:variables
+
+
 }

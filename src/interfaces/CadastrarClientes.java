@@ -4,10 +4,8 @@
  */
 package interfaces;
 import classes.Cliente;
-import static classes.DBController.*;
+import classes.DBController;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -45,7 +43,7 @@ public class CadastrarClientes extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         id = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cadastrarCliente = new javax.swing.JButton();
+        cadastrarVeiculo = new javax.swing.JButton();
         cpf = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -66,10 +64,10 @@ public class CadastrarClientes extends javax.swing.JFrame {
 
         jLabel3.setText("Id: Digitos");
 
-        cadastrarCliente.setText("Cadastrar");
-        cadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+        cadastrarVeiculo.setText("Cadastrar");
+        cadastrarVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarClienteActionPerformed(evt);
+                cadastrarVeiculoActionPerformed(evt);
             }
         });
 
@@ -157,7 +155,7 @@ public class CadastrarClientes extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cadastrarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -195,7 +193,7 @@ public class CadastrarClientes extends javax.swing.JFrame {
                     .addComponent(jRadioButton3)
                     .addComponent(jRadioButton5))
                 .addGap(40, 40, 40)
-                .addComponent(cadastrarCliente)
+                .addComponent(cadastrarVeiculo)
                 .addGap(40, 40, 40))
         );
 
@@ -231,29 +229,26 @@ public class CadastrarClientes extends javax.swing.JFrame {
         return null;
     }
     
-    private void cadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarClienteActionPerformed
+    private void cadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarVeiculoActionPerformed
         int idCliente = Integer.parseInt(id.getText());
         int idadeCliente = Integer.parseInt(idade.getText());
         String cpfCliente = cpf.getText();
-        
-        try {conectarNoBanco();}
-        catch(SQLException e) {System.out.println(e.getCause());}
-        catch(Exception e){System.out.println(e.getMessage());}
+        DBController db = new DBController("dbTrab.db");
         
         try{
             if(!CpfExiste(cpfCliente)){
-                salvarClienteBD(nome.getText(), idadeCliente, getSelectedButtonText(buttonGroup1), cpfCliente, idCliente, null, getSelectedButtonText(buttonGroup2));
+                Cliente cliente  = new Cliente(idCliente, nome.getText(), getSelectedButtonText(buttonGroup1), idadeCliente, cpfCliente, "", getSelectedButtonText(buttonGroup2));
+                db.conectarNoBanco();
+                db.salvarClienteBD(nome.getText(), idadeCliente, getSelectedButtonText(buttonGroup1), cpfCliente, idCliente, null, getSelectedButtonText(buttonGroup2));
                 super.dispose();
+                db.desconectarDoBanco();
             } else JOptionPane.showMessageDialog(new JFrame(), "CPF já cadastrado.");
         }
         catch(Exception e){
-            //JOptionPane.showMessageDialog(null, "Erro ao preencher formulário");
-            e.printStackTrace();
-        } finally{
-            try {desconectarDoBanco();}
-            catch(SQLException e) {System.out.println(e.getCause());}
-        }
-    }//GEN-LAST:event_cadastrarClienteActionPerformed
+            JOptionPane.showMessageDialog(null, "Erro ao preencher formulário");
+            System.out.println(e.getMessage());
+        }  
+    }//GEN-LAST:event_cadastrarVeiculoActionPerformed
 
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
         // TODO add your handling code here:
@@ -272,12 +267,16 @@ public class CadastrarClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton5ActionPerformed
 
     private boolean CpfExiste(String cpf) throws Exception{
-        ResultSet rset = carregarInfosClientes();
+        DBController db = new DBController("dbTrab.db");
+        db.conectarNoBanco();
+        ResultSet rset = db.carregarInfosClientes();
         while (rset.next()){
             if(cpf.equalsIgnoreCase(rset.getString("cpf"))){
+                db.desconectarDoBanco();
                 return true;
             }
         }
+        db.desconectarDoBanco();
         return false;
     }
     
@@ -319,7 +318,7 @@ public class CadastrarClientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JButton cadastrarCliente;
+    private javax.swing.JButton cadastrarVeiculo;
     private javax.swing.JTextField cpf;
     private javax.swing.JTextField id;
     private javax.swing.JTextField idade;

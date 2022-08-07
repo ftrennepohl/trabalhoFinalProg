@@ -1,6 +1,6 @@
 package interfaces;
 
-import static classes.DBController.*;
+import classes.DBController;
 import java.awt.Color;
 import java.sql.*;
 import java.util.List;
@@ -355,47 +355,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrar3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {conectarNoBanco();}
-        catch(SQLException e) {System.out.println(e.getCause());}
-        catch(Exception e){System.out.println(e.getMessage());}
+        DBController db = new DBController("dbTrab.db");
         DefaultTableModel dtm = (DefaultTableModel) jTableCarros.getModel();
         dtm.setRowCount(0);
-        List<List<String>> list = selectAllCarros();
+        List<List<String>> list = db.selectAllCarros();
         for(int i = 0; i < list.size(); i++)
         {
             String data[] = {list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)};
             DefaultTableModel model = (DefaultTableModel) jTableCarros.getModel();
             model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)});
         }
-        try {desconectarDoBanco();}
-        catch(SQLException e) {System.out.println(e.getCause());}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         
-        try {conectarNoBanco();}
-        catch(SQLException e) {System.out.println(e.getCause());}
-        catch(Exception e){System.out.println(e.getMessage());}
+        DBController db = new DBController("dbTrab.db");
         DefaultTableModel dtm = (DefaultTableModel) jTableMotos.getModel();
         dtm.setRowCount(0);
-        List<List<String>> list = selectAllCarros();
+        List<List<String>> list = db.selectAllMotos();
         for(int i = 0; i < list.size(); i++)
         {
             String data[] = {list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)};
             DefaultTableModel model = (DefaultTableModel) jTableMotos.getModel();
             model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)});
         }
-        try {desconectarDoBanco();}
-        catch(SQLException e) {System.out.println(e.getCause());}
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {conectarNoBanco();}
-        catch(SQLException e) {System.out.println(e.getCause());}
-        catch(Exception e){System.out.println(e.getMessage());}
+        DBController db = new DBController("dbTrab.db");
         DefaultTableModel dtm = (DefaultTableModel) jTableAlugados.getModel();
         dtm.setRowCount(0);
-        List<List<String>> list = selectAllCarros();
+        List<List<String>> list = db.selectAllMotos();
         for(int i = 0; i < list.size(); i++)
         {
             if(list.get(i).get(4).equals("Alugado")){
@@ -404,7 +394,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         }
         
-        List<List<String>> list2 = selectAllCarros();
+        List<List<String>> list2 = db.selectAllCarros();
         for(int j = 0; j < list2.size(); j++)
         {
             if(list2.get(j).get(4).equals("Alugado")){
@@ -412,14 +402,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 model.addRow(new Object[]{list2.get(j).get(5), list2.get(j).get(0), list2.get(j).get(1), list2.get(j).get(2), list2.get(j).get(3), list2.get(j).get(4)});
             }
         }
-        try {desconectarDoBanco();}
-        catch(SQLException e) {System.out.println(e.getCause());}
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /*
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         
         try {
             javax.swing.UIManager.setLookAndFeel(
