@@ -228,7 +228,8 @@ public class AlugarVeiculo extends javax.swing.JFrame {
                     System.out.println(placaVeiculo.getText());
                     System.out.println(cpfCliente.getText());
                     Update app = new Update();
-                    app.updateCarros(transformToDate(dataEntrega.getText()), placaVeiculo.getText(), false);
+                    app.updateCarros(transformToDate(dataEntrega.getText()), placaVeiculo.getText(), true);
+                    System.out.println("YAY");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
@@ -243,14 +244,22 @@ public class AlugarVeiculo extends javax.swing.JFrame {
                     System.out.println(placaVeiculo.getText());
                     System.out.println(cpfCliente.getText());
                     Update app = new Update();
-                    app.updateMotos(transformToDate(dataEntrega.getText()), placaVeiculo.getText(), false);
+                    app.updateMotos(transformToDate(dataEntrega.getText()), placaVeiculo.getText(), true);
                 }
             } catch (Exception ex) {
                 Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
+        try {
+            if (existsPlacaCarro(placaVeiculo.getText())&&existsCPF(cpfCliente.getText())){
+                Update app = new Update();
+                app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
+                System.out.println("YAY2");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
         super.dispose();
 
          

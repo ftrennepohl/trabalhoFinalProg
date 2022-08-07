@@ -64,4 +64,19 @@ public class Update {
             System.out.println(e.getMessage());
         }
     }
+    public void updateClientes(String cpf, String placaVeiculoAlugado) throws SQLException {
+        String sql = "UPDATE clientes SET placaVeiculoAlugado = ? WHERE cpf = ?";
+        try (
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, placaVeiculoAlugado);
+            pstmt.setString(2, cpf);
+            // update 
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
