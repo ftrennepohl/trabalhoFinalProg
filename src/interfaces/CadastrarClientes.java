@@ -90,6 +90,7 @@ public class CadastrarClientes extends javax.swing.JFrame {
         jLabel6.setText("Tipo de Habilitação");
 
         buttonGroup2.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("A");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,12 +145,12 @@ public class CadastrarClientes extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioButton5))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jRadioButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButton4)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -236,16 +237,16 @@ public class CadastrarClientes extends javax.swing.JFrame {
         
         try{
             if(!CpfExiste(cpfCliente)){
-                System.out.println("chegou aque");
-                Cliente cliente  = new Cliente(idCliente, nome.getText(), getSelectedButtonText(buttonGroup1), idadeCliente, cpfCliente, "");
+                Cliente cliente  = new Cliente(idCliente, nome.getText(), getSelectedButtonText(buttonGroup1), idadeCliente, cpfCliente, "", getSelectedButtonText(buttonGroup2));
                 db.conectarNoBanco();
-                db.salvarClienteBD(nome.getText(), idadeCliente, getSelectedButtonText(buttonGroup1), cpfCliente, idCliente, null);
+                db.salvarClienteBD(nome.getText(), idadeCliente, getSelectedButtonText(buttonGroup1), cpfCliente, idCliente, null, getSelectedButtonText(buttonGroup2));
                 super.dispose();
                 db.desconectarDoBanco();
             } else JOptionPane.showMessageDialog(new JFrame(), "CPF já cadastrado.");
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro ao preencher formulário");
+            System.out.println(e.getMessage());
         }  
     }//GEN-LAST:event_cadastrarVeiculoActionPerformed
 

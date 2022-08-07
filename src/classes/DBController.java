@@ -110,8 +110,8 @@ public class DBController {
         }
     }
     
-    public void salvarClienteBD(String nome, int idade, String sexo, String cpf, int id, String placaVeiculoAlugado) throws Exception{
-        String ins = "INSERT INTO clientes (nome, idade, sexo, cpf, id, placaVeiculoAlugado) VALUES (?, ?, ?, ?, ?, ?)";
+    public void salvarClienteBD(String nome, int idade, String sexo, String cpf, int id, String placaVeiculoAlugado, String cnh) throws Exception{
+        String ins = "INSERT INTO clientes (nome, idade, sexo, cpf, id, placaVeiculoAlugado, cnh) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         try {
             stmt = this.dbConn.prepareStatement(ins);
@@ -121,6 +121,7 @@ public class DBController {
             stmt.setString(4, cpf);
             stmt.setInt(5, id);
             stmt.setString(6, placaVeiculoAlugado);
+            stmt.setString(7, cnh);
             stmt.executeUpdate();
         } catch(SQLException e) {
             throw new Exception("Erro ao inserir carro: " + e.getMessage());
