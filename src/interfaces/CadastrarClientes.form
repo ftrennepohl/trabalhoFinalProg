@@ -114,7 +114,7 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="cadastrarVeiculo" min="-2" pref="138" max="-2" attributes="0"/>
+                  <Component id="cadastrarCliente" min="-2" pref="138" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -162,7 +162,7 @@
                       <Component id="jRadioButton5" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="cadastrarVeiculo" min="-2" max="-2" attributes="0"/>
+                  <Component id="cadastrarCliente" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -190,12 +190,12 @@
             <Property name="text" type="java.lang.String" value="Id: Digitos"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="cadastrarVeiculo">
+        <Component class="javax.swing.JButton" name="cadastrarCliente">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarVeiculoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarClienteActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="cpf">

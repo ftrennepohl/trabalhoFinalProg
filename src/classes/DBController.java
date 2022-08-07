@@ -4,35 +4,38 @@ import java.io.*;
 import java.sql.*;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DBController {
-    private String dbNome;
-    Connection dbConn;
+    private final static String dbNome = "C:\\Users\\Fabricio\\Documents\\GitHub\\trabalhoFinalProg\\dbTrab.db";
+    private static Connection dbConn;
     
-    public DBController(String dbNome){
-        this.dbNome = dbNome;
-    }
     
     //Funções para o banco de dados
-    public void conectarNoBanco() throws Exception{
-        File f = new File(this.dbNome);
-        if (!f.exists()){
-            throw new Exception("Arquivo de banco de dados nao existe!");
+    
+    // Usar atributos static, só pode ter uma conexão com o BD
+    
+    // NÃO CONECTAR NO BANCO PARA CARREGAR DADOS DO BD, A FUNÇÃO JÁ FAZ ISSO
+    
+    public static void conectarNoBanco() throws Exception{
+        
+        File f = new File(dbNome);
+        if (!f.exists()) throw new Exception("Arquivo de banco de dados nao existe!");
+        if (dbConn == null){
+            Class.forName("org.sqlite.JDBC");
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbNome);
         }
-        Class.forName("org.sqlite.JDBC");
-        this.dbConn = DriverManager.getConnection("jdbc:sqlite:" + this.dbNome);
     }
     
-    public void desconectarDoBanco() throws SQLException{
-        this.dbConn.close();
+    public static void desconectarDoBanco() throws SQLException{
+        dbConn.close();
     }
-    public void atualizarMoto(Date dataEntrega, String placa) throws SQLException, Exception{
+    
+    public static void atualizarMoto(Date dataEntrega, String placa) throws SQLException, Exception{
         String where = "UPDATE motos SET estadoAlugado = ?, dataEntregar = ? WHERE placa = ?";
         PreparedStatement stmt;
         try{ 
-            Connection conn = this.connect();
+            Connection conn = connect();
             stmt = conn.prepareStatement(where);
             stmt.setBoolean(1, true);
             stmt.setDate(2, dataEntrega);
@@ -42,12 +45,12 @@ public class DBController {
             throw new Exception("Erro ao atualizar: " + e.getMessage());
         }
     }
-    public void atualizarCarro(Date dataEntrega, String placa) throws SQLException, Exception{
+    public static void atualizarCarro(Date dataEntrega, String placa) throws SQLException, Exception{
         String where = "UPDATE carros SET estadoAlugado = ?, dataEntregar = ? WHERE placa = ?";
         PreparedStatement stmt;
         try{ 
-            stmt = this.dbConn.prepareStatement(where);
-            stmt.setBoolean(1, true);
+            stmt = dbConn.prepareStatement(where);
+            stmt.setInt(1, 1);
             stmt.setDate(2, dataEntrega);
             stmt.setString(3, placa);
             stmt.executeUpdate();
@@ -56,11 +59,11 @@ public class DBController {
         }
     }
     
-    public void atualizarCliente(String placa, String cpf) throws SQLException, Exception{
+    public static void atualizarCliente(String placa, String cpf) throws SQLException, Exception{
         String where = "UPDATE clientes SET placaVeiculoAlugado = ? WHERE cpf = ?";
         PreparedStatement stmt;
         try{
-            stmt = this.dbConn.prepareStatement(where);
+            stmt = dbConn.prepareStatement(where);
             stmt.setString(1, placa);
             stmt.setString(2, cpf);
             stmt.executeUpdate();
@@ -68,11 +71,11 @@ public class DBController {
             throw new Exception("Erro ao atualizar: " + e.getMessage());
         }
     }
-    public void salvarCarroBD(String placa, String modelo, String marca, int potencia, double preco, boolean alugado, Date alugadoEm, Date alugadoAte, String classificacao, int idCliente, String nomeCliente) throws Exception{
+    public static void salvarCarroBD(String placa, String modelo, String marca, int potencia, double preco, boolean alugado, Date alugadoEm, Date alugadoAte, String classificacao, int idCliente, String nomeCliente) throws Exception{
         String ins = "INSERT INTO carros (placa, modelo, marca, potencia, classificacao, idCliente, estadoAlugado, dataAlugado, dataEntregar, preco) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         try {
-            stmt = this.dbConn.prepareStatement(ins);
+            stmt = dbConn.prepareStatement(ins);
             stmt.setString(1, placa);
             stmt.setString(2, modelo);
             stmt.setString(3, marca);
@@ -89,11 +92,11 @@ public class DBController {
         }
     }
     
-    public void salvarMotoBD(String placa, String modelo, String marca, int potencia, double preco, boolean alugado, Date alugadoEm, Date alugadoAte, String classificacao, int idCliente, String nomeCliente) throws Exception{
+    public static void salvarMotoBD(String placa, String modelo, String marca, int potencia, double preco, boolean alugado, Date alugadoEm, Date alugadoAte, String classificacao, int idCliente, String nomeCliente) throws Exception{
         String ins = "INSERT INTO motos (placa, modelo, marca, potencia, classificacao, idCliente, estadoAlugado, dataAlugado, dataEntregar, preco) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         try {
-            stmt = this.dbConn.prepareStatement(ins);
+            stmt = dbConn.prepareStatement(ins);
             stmt.setString(1, placa);
             stmt.setString(2, modelo);
             stmt.setString(3, marca);
@@ -106,15 +109,15 @@ public class DBController {
             stmt.setDouble(10, preco);
             stmt.executeUpdate();
         } catch(SQLException e) {
-            throw new Exception("Erro ao inserir carro: " + e.getMessage());
+            throw new Exception("Erro ao inserir moto: " + e.getMessage());
         }
     }
     
-    public void salvarClienteBD(String nome, int idade, String sexo, String cpf, int id, String placaVeiculoAlugado, String cnh) throws Exception{
+    public static void salvarClienteBD(String nome, int idade, String sexo, String cpf, int id, String placaVeiculoAlugado, String cnh) throws Exception{
         String ins = "INSERT INTO clientes (nome, idade, sexo, cpf, id, placaVeiculoAlugado, cnh) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt;
         try {
-            stmt = this.dbConn.prepareStatement(ins);
+            stmt = dbConn.prepareStatement(ins);
             stmt.setString(1, nome);
             stmt.setInt(2, idade);
             stmt.setString(3, sexo);
@@ -124,15 +127,15 @@ public class DBController {
             stmt.setString(7, cnh);
             stmt.executeUpdate();
         } catch(SQLException e) {
-            throw new Exception("Erro ao inserir carro: " + e.getMessage());
+            throw new Exception("Erro ao inserir cliente: " + e.getMessage());
         }
     }
     
     
     
-    private Connection connect() {
+    private static Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:" + this.dbNome;
+        String url = "jdbc:sqlite:" + dbNome;
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -142,12 +145,12 @@ public class DBController {
         return conn;
     }
     
-    public ResultSet carregarInfosCarros() throws Exception{
+    public static ResultSet carregarInfosCarros() throws Exception{
         String select = "SELECT * FROM carros";
         ResultSet rset = null;
         
         try{
-            Connection conn = this.connect();
+            Connection conn = connect();
             Statement stmt = conn.createStatement();
             rset = stmt.executeQuery(select);
         } catch(SQLException e){
@@ -155,11 +158,11 @@ public class DBController {
         }
         return rset;
     }
-    public ResultSet carregarInfosMotos() throws Exception{
+    public static ResultSet carregarInfosMotos() throws Exception{
         String select = "SELECT * FROM motos";
         ResultSet rset = null;
         try{
-            Connection conn = this.connect();
+            Connection conn = connect();
             Statement stmt = conn.createStatement();
             rset = stmt.executeQuery(select);
         } catch(SQLException e){
@@ -167,11 +170,13 @@ public class DBController {
         }
         return rset;
     }
-    public ResultSet carregarInfosClientes() throws Exception{
+    public static ResultSet carregarInfosClientes() throws Exception{
         String select = "SELECT * FROM clientes";
         ResultSet rset = null;
         try{
-            Statement stmt = this.dbConn.createStatement();
+            Statement stmt = dbConn.createStatement();
+            // Connection conn = connect();
+            // Statement stmt = conn.createStatement();
             rset = stmt.executeQuery(select);
         } catch(SQLException e){
             throw new Exception("Erro ao buscar a palavra: " + e.getMessage());
@@ -179,7 +184,7 @@ public class DBController {
         return rset;
     }
     
-    public List<List<String>> selectAllCarros(){
+    public static List<List<String>> selectAllCarros(){
        List<List<String>> listOfLists = new ArrayList<>();
         
 

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package interfaces;
-import classes.DBController;
+import static classes.DBController.*;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
@@ -23,51 +23,36 @@ public class AlugarVeiculo extends javax.swing.JFrame {
         initComponents();
     }
     private boolean existsPlacaCarro(String placa) throws Exception{
-        DBController db = new DBController("dbTrab.db");
-        db.conectarNoBanco();
-        ResultSet rset = db.carregarInfosCarros();
+        ResultSet rset = carregarInfosCarros();
         while (rset.next()){
             if(placa.equalsIgnoreCase(rset.getString("placa"))){
-                db.desconectarDoBanco();
                 return true;
             }
         }
-        db.desconectarDoBanco();
         return false;
     }
     private boolean existsPlaca(String placa) throws Exception{
-        DBController db = new DBController("dbTrab.db");
-        db.conectarNoBanco();
-        ResultSet rset = db.carregarInfosMotos();
+        ResultSet rset = carregarInfosMotos();
         while (rset.next()){
-            if(placa.equalsIgnoreCase(rset.getString("placa"))){
-                db.desconectarDoBanco();
-                return true;
-            }
+            if(placa.equalsIgnoreCase(rset.getString("placa"))) return true;
         }
-        db.desconectarDoBanco();
         return false;
     }
     private boolean existsCPF(String cpf) throws Exception{
-        DBController db = new DBController("dbTrab.db");
-        db.conectarNoBanco();
-        ResultSet rset = db.carregarInfosClientes();
+        ResultSet rset = carregarInfosClientes();
         while (rset.next()){
-            if(cpf.equalsIgnoreCase(rset.getString("cpf"))) return true;
+            if(cpf.equalsIgnoreCase(rset.getString("cpf"))) {
+                return true;
+            }
         }
-        db.desconectarDoBanco();
         return false;
     }
     
     private boolean tipoCorretoCnh(String cpf, String cnh) throws Exception{
-        DBController db = new DBController("dbTrab.db");
-        db.conectarNoBanco();
-        ResultSet rset = db.carregarInfosClientes();
+        ResultSet rset = carregarInfosClientes();
         while (rset.next()){
             if(cpf.equalsIgnoreCase(rset.getString("cpf"))){
-                //db.desconectarDoBanco();
-                //return rset.getString("((nome do campo))").equals(cnh)  inserir nome campo CNH do BD
-                
+                return rset.getString("cnh").equals(cnh);
             }
         }
         return false;
@@ -220,24 +205,23 @@ public class AlugarVeiculo extends javax.swing.JFrame {
                 if (existsPlacaCarro(placaVeiculo.getText())){
                     try {
                         if (existsCPF(cpfCliente.getText())){
-                            DBController db = new DBController("dbTrab.db");
-                            db.conectarNoBanco();
+                            conectarNoBanco();
                             String placa = placaVeiculo.getText();
                             String cpf = cpfCliente.getText();
-                            db.atualizarCarro(transformToDate(dataEntrega.getText()), placa);
-                            db.atualizarCliente(placa, cpf);
-                            db.desconectarDoBanco();
+                            atualizarCarro(transformToDate(dataEntrega.getText()), placa);
+                            atualizarCliente(placa, cpf);
+                            desconectarDoBanco();
                         }else{
                             JOptionPane.showMessageDialog(new JFrame(),"CPF Inválido.");
                         }
                     }catch(Exception e){
-                        System.out.println(e);
+                        e.printStackTrace();
                     }
                 }else{
                     JOptionPane.showMessageDialog(new JFrame(),"Placa inválida.");
                 }
             } catch (Exception ex) {
-                System.out.println(ex);
+                ex.printStackTrace();
             }
         }
         if (isMoto.isSelected()){
@@ -247,11 +231,10 @@ public class AlugarVeiculo extends javax.swing.JFrame {
                         if (existsCPF(cpfCliente.getText())){
                             String cpf = cpfCliente.getText();
                             String placa = placaVeiculo.getText();
-                            DBController db = new DBController("dbTrab.db");
-                            db.conectarNoBanco();
-                            db.atualizarMoto((dataEntrega.getText()), placa);
-                            db.atualizarCliente(placa, cpf);
-                            db.desconectarDoBanco();
+                            conectarNoBanco();
+                            atualizarMoto((dataEntrega.getText()), placa);
+                            atualizarCliente(placa, cpf);
+                            desconectarDoBanco();
                         }
                     }catch(Exception e){
                         JOptionPane.showMessageDialog(null, "Erro ao preencher formulário");
