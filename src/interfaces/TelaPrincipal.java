@@ -47,6 +47,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAlugados = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbpClientes = new javax.swing.JTable();
+        btnPesquisarClientes = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -168,6 +172,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTableCarros);
+        if (jTableCarros.getColumnModel().getColumnCount() > 0) {
+            jTableCarros.getColumnModel().getColumn(0).setHeaderValue("Marca");
+            jTableCarros.getColumnModel().getColumn(1).setHeaderValue("Modelo");
+            jTableCarros.getColumnModel().getColumn(2).setResizable(false);
+            jTableCarros.getColumnModel().getColumn(2).setHeaderValue("Preço");
+            jTableCarros.getColumnModel().getColumn(3).setResizable(false);
+            jTableCarros.getColumnModel().getColumn(3).setHeaderValue("Data de Entrega");
+            jTableCarros.getColumnModel().getColumn(4).setHeaderValue("Status");
+        }
 
         jButton1.setText("Pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +200,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1070, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1076, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
@@ -230,7 +243,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1070, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1076, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton4)
@@ -269,7 +282,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1070, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1076, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton2)
@@ -286,6 +299,52 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Alugados", jPanel6);
+
+        tbpClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Idade", "CPF", "Placa do veiculo alugado"
+            }
+        ));
+        jScrollPane4.setViewportView(tbpClientes);
+
+        btnPesquisarClientes.setText("Pesquisar");
+        btnPesquisarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarClientesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1076, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane4)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addComponent(btnPesquisarClientes)
+                            .addGap(968, 968, 968)))
+                    .addContainerGap()))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btnPesquisarClientes)
+                    .addContainerGap()))
+        );
+
+        jTabbedPane1.addTab("Clientes", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -404,6 +463,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnPesquisarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPesquisarClientesActionPerformed
+
     /*
      * @param args the command line arguments
      */
@@ -436,6 +499,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAlugar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCadastrar3;
+    private javax.swing.JButton btnPesquisarClientes;
     private javax.swing.JButton btnRecebeVeiculo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -444,15 +508,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTableAlugados;
     private javax.swing.JTable jTableCarros;
     private javax.swing.JTable jTableMotos;
+    private javax.swing.JTable tbpClientes;
     // End of variables declaration//GEN-END:variables
 }
