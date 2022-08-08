@@ -33,6 +33,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
         btnRecebeVeiculo = new javax.swing.JButton();
         btnCadastrar3 = new javax.swing.JButton();
+        btnDelCliente = new javax.swing.JButton();
+        DelVeiculo = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -43,14 +45,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableMotos = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
+        btnAlugar1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAlugados = new javax.swing.JTable();
+        btnAlugar3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableClientes = new javax.swing.JTable();
         btnPesquisarClientes = new javax.swing.JButton();
+        btnAlugar4 = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,7 +77,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(16, 16, 16));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
         jLabel1.setText("UFFS_CAR");
 
         btnCadastrar.setBackground(new java.awt.Color(16, 16, 16));
@@ -132,6 +137,44 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnDelCliente.setBackground(new java.awt.Color(16, 16, 16));
+        btnDelCliente.setText("Deletar Cliente");
+        btnDelCliente.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        btnDelCliente.setContentAreaFilled(false);
+        btnDelCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDelCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDelClienteMouseExited(evt);
+            }
+        });
+        btnDelCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelClienteActionPerformed(evt);
+            }
+        });
+
+        DelVeiculo.setBackground(new java.awt.Color(16, 16, 16));
+        DelVeiculo.setText("Deletar Veículo");
+        DelVeiculo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        DelVeiculo.setContentAreaFilled(false);
+        DelVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        DelVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                DelVeiculoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                DelVeiculoMouseExited(evt);
+            }
+        });
+        DelVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DelVeiculoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,12 +183,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DelVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrar3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRecebeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +202,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRecebeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrar3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCadastrar3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DelVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -177,7 +226,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jTableCarros.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jButton1.setText("Pesquisar");
+        jButton1.setText("Atualizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -227,10 +276,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(jTableMotos);
 
-        jButton4.setText("Pesquisar");
+        jButton4.setText("Atualizar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
+            }
+        });
+
+        btnAlugar1.setText("Alugar");
+        btnAlugar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlugar1ActionPerformed(evt);
             }
         });
 
@@ -242,21 +298,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAlugar1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(btnAlugar1))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Motos", jPanel3);
 
-        jButton2.setText("Pesquisar");
+        jButton2.setText("Atualizar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -268,10 +328,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Marca", "Modelo", "Preço", "Data Alugado", "Status", "placa"
+                "Marca", "Modelo", "Preço", "Data Alugado", "Status", "placa"
             }
         ));
         jScrollPane3.setViewportView(jTableAlugados);
+
+        btnAlugar3.setText("Alugar");
+        btnAlugar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlugar3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -281,15 +348,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAlugar3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(btnAlugar3))
                 .addContainerGap())
         );
 
@@ -305,10 +376,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(jTableClientes);
 
-        btnPesquisarClientes.setText("Pesquisar");
+        btnPesquisarClientes.setText("Atualizar");
         btnPesquisarClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarClientesActionPerformed(evt);
+            }
+        });
+
+        btnAlugar4.setText("Alugar");
+        btnAlugar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlugar4ActionPerformed(evt);
             }
         });
 
@@ -316,27 +394,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1076, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane4)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(btnPesquisarClientes)
-                            .addGap(968, 968, 968)))
-                    .addContainerGap()))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnPesquisarClientes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAlugar4)
+                .addContainerGap(916, Short.MAX_VALUE))
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPesquisarClientes)
-                    .addContainerGap()))
+                    .addComponent(btnAlugar4))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Clientes", jPanel4);
@@ -442,7 +517,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         {
             if(list.get(i).get(4).equals("Alugado")){
                 DefaultTableModel model = (DefaultTableModel) jTableAlugados.getModel();
-                model.addRow(new Object[]{list.get(i).get(5),list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4), list.get(i).get(6)});
+                model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4), list.get(i).get(6)});
             }
         }
         
@@ -451,14 +526,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         {
             if(list2.get(j).get(4).equals("Alugado")){
                 DefaultTableModel model = (DefaultTableModel) jTableAlugados.getModel();
-                model.addRow(new Object[]{list2.get(j).get(5), list2.get(j).get(0), list2.get(j).get(1), list2.get(j).get(2), list2.get(j).get(3), list2.get(j).get(4), list2.get(j).get(6)});
+                model.addRow(new Object[]{list2.get(j).get(0), list2.get(j).get(1), list2.get(j).get(2), list2.get(j).get(3), list2.get(j).get(4), list2.get(j).get(6)});
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnPesquisarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClientesActionPerformed
         DBController db = new DBController("dbTrab.db");
-        DefaultTableModel dtm = (DefaultTableModel) jTableMotos.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) jTableClientes.getModel();
         dtm.setRowCount(0);
         List<List<String>> list = db.selectAllClientes();
         for(int i = 0; i < list.size(); i++)
@@ -467,6 +542,42 @@ public class TelaPrincipal extends javax.swing.JFrame {
             model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(3), list.get(i).get(5)});
         }
     }//GEN-LAST:event_btnPesquisarClientesActionPerformed
+
+    private void btnAlugar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugar1ActionPerformed
+        new AlugarVeiculo().setVisible(true);
+    }//GEN-LAST:event_btnAlugar1ActionPerformed
+
+    private void btnAlugar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugar3ActionPerformed
+        new AlugarVeiculo().setVisible(true);
+    }//GEN-LAST:event_btnAlugar3ActionPerformed
+
+    private void btnAlugar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugar4ActionPerformed
+        new AlugarVeiculo().setVisible(true);
+    }//GEN-LAST:event_btnAlugar4ActionPerformed
+
+    private void btnDelClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelClienteMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDelClienteMouseEntered
+
+    private void btnDelClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelClienteMouseExited
+ 
+    }//GEN-LAST:event_btnDelClienteMouseExited
+
+    private void btnDelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelClienteActionPerformed
+        new DeletarCliente().setVisible(true);
+    }//GEN-LAST:event_btnDelClienteActionPerformed
+
+    private void DelVeiculoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DelVeiculoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DelVeiculoMouseEntered
+
+    private void DelVeiculoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DelVeiculoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DelVeiculoMouseExited
+
+    private void DelVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DelVeiculoActionPerformed
+        new DeletarVeiculo().setVisible(true);
+    }//GEN-LAST:event_DelVeiculoActionPerformed
 
     /*
      * @param args the command line arguments
@@ -497,9 +608,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DelVeiculo;
     private javax.swing.JButton btnAlugar;
+    private javax.swing.JButton btnAlugar1;
+    private javax.swing.JButton btnAlugar3;
+    private javax.swing.JButton btnAlugar4;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCadastrar3;
+    private javax.swing.JButton btnDelCliente;
     private javax.swing.JButton btnPesquisarClientes;
     private javax.swing.JButton btnRecebeVeiculo;
     private javax.swing.JButton jButton1;

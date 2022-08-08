@@ -6,6 +6,7 @@ package interfaces;
 
 import classes.DBController;
 import classes.Update;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,12 +16,12 @@ import javax.swing.JOptionPane;
  *
  * @author Pichau
  */
-public class DevolverVeiculo extends javax.swing.JFrame {
+public class DeletarVeiculo extends javax.swing.JFrame {
 
     /**
-     * Creates new form DevolverVeiculo
+     * Creates new form DeletarVeiculo
      */
-    public DevolverVeiculo() {
+    public DeletarVeiculo() {
         initComponents();
     }
 
@@ -37,21 +38,21 @@ public class DevolverVeiculo extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         placa = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        recVeiculo = new javax.swing.JButton();
+        delVeiculo = new javax.swing.JButton();
         isCarro = new javax.swing.JRadioButton();
         isMoto = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Receber Veículo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Ubuntu", 0, 15), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Deletar Veículo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Ubuntu", 0, 15), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel8.setText("Placa");
 
-        recVeiculo.setText("Receber Veículo");
-        recVeiculo.addActionListener(new java.awt.event.ActionListener() {
+        delVeiculo.setText("Deletar Veículo");
+        delVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                recVeiculoActionPerformed(evt);
+                delVeiculoActionPerformed(evt);
             }
         });
 
@@ -78,14 +79,14 @@ public class DevolverVeiculo extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(129, 129, 129)
-                        .addComponent(recVeiculo))
+                        .addComponent(delVeiculo))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(isMoto)
                             .addComponent(isCarro))))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,7 +102,7 @@ public class DevolverVeiculo extends javax.swing.JFrame {
                     .addComponent(placa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(isMoto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addComponent(recVeiculo)
+                .addComponent(delVeiculo)
                 .addGap(42, 42, 42))
         );
 
@@ -125,24 +126,16 @@ public class DevolverVeiculo extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    
     DBController db = new DBController("dbTrab.db");
     private final List<List<String>> listaCarros= db.selectAllCarros();
     private final List<List<String>> listaMotos= db.selectAllMotos();
-    private final List<List<String>> listaClientes= db.selectAllClientes();
-    
     private boolean existsPlacaCarro(String placa) throws Exception{
 
         for(int i = 0; i < this.listaCarros.size(); i++)
         {
             if(listaCarros.get(i).get(6).equals(placa))
             {
-                //Checa se já ta sendo alugado
-                if(listaCarros.get(i).get(4).equals("Alugado"))
-                {
-                    return true;
-                }
+                return true;
             }
         }
         return false;
@@ -152,70 +145,48 @@ public class DevolverVeiculo extends javax.swing.JFrame {
         {
             if(listaMotos.get(i).get(6).equals(placa))
             {
-                //Checa se já ta sendo alugado
-                if(listaMotos.get(i).get(4).equals("Alugado"))
-                {
-                    return true;
-                }
+                return true;
             }
         }
         return false;
     }
-    private String getClienteAlugandoCarro(String placa) throws Exception{
-        for(int i = 0; i < this.listaCarros.size(); i++)
+    private void delVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delVeiculoActionPerformed
+        if(isCarro.isSelected())
         {
-           if(listaCarros.get(i).get(5).equals(placa))
-           {
-               return listaCarros.get(i).get(3);
-           }
-        }
-        
-        return "";
-    }
-    private String getClienteAlugandoMoto(String placa) throws Exception{
-        for(int i = 0; i < this.listaMotos.size(); i++)
-        {
-           if(listaMotos.get(i).get(5).equals(placa))
-           {
-               return listaMotos.get(i).get(3);
-           }
-        }
-        
-        return "";
-    }
-       
-    private void recVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recVeiculoActionPerformed
-        if (isCarro.isSelected()){
-               System.out.println(placa.getText());
             try {
-                if (existsPlacaCarro(placa.getText()))
+                if(!existsPlacaCarro(placa.getText()))
                 {
-                    Update app = new Update();
-                    app.updateCarros("", placa.getText(), false);
-                    String cpf = getClienteAlugandoCarro(placa.getText());
-                    app.updateClientes(cpf, "");
+                    JOptionPane.showMessageDialog(null, "Placa Inválida");
                 }
             } catch (Exception ex) {
-                Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DeletarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        }
-        if (isMoto.isSelected()){
+            Update app = new Update();
             try {
-                if (existsPlacaMoto(placa.getText()))
+                app.deleteFromCars(placa.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(DeletarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(isMoto.isSelected())
+        {
+            try {
+                if(!existsPlacaMoto(placa.getText()))
                 {
-                    Update app = new Update();
-                    app.updateMotos("", placa.getText(), false);
-                    String cpf = getClienteAlugandoMoto(placa.getText());
-                    app.updateClientes(cpf, "");
+                    JOptionPane.showMessageDialog(null, "Placa Inválida");
                 }
             } catch (Exception ex) {
-                Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DeletarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            Update app = new Update();
+            try {
+                app.deleteFromBikes(placa.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(DeletarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         super.dispose();
-    }//GEN-LAST:event_recVeiculoActionPerformed
+    }//GEN-LAST:event_delVeiculoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,32 +205,48 @@ public class DevolverVeiculo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DevolverVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeletarVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DevolverVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeletarVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DevolverVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeletarVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DevolverVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeletarVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DevolverVeiculo().setVisible(true);
+                new DeletarVeiculo().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton delVeiculo;
+    private javax.swing.JTextField idade;
+    private javax.swing.JTextField idade1;
+    private javax.swing.JTextField idade2;
+    private javax.swing.JTextField idade3;
     private javax.swing.JRadioButton isCarro;
     private javax.swing.JRadioButton isMoto;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JTextField placa;
-    private javax.swing.JButton recVeiculo;
     // End of variables declaration//GEN-END:variables
 }

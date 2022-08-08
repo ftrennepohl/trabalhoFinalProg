@@ -31,8 +31,40 @@ public class Update {
         }
         return conn;
     }
-
-    public void updateCarros(Date dataEntrega, String placa, boolean isAlugado) throws SQLException {
+    public void deleteFromCars(String placa) throws SQLException{
+        String sql = "DELETE FROM carros WHERE placa = ?";
+        try{
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, placa);
+            pstmt.executeUpdate();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public void deleteFromBikes(String placa) throws SQLException{
+        String sql = "DELETE FROM motos WHERE placa = ?";
+        try{
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, placa);
+            pstmt.executeUpdate();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }   
+    public void deleteFromClients(String cpf) throws SQLException{
+        String sql = "DELETE FROM clientes WHERE cpf = ?";
+        try{
+            Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,cpf);
+            pstmt.executeUpdate();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public void updateCarros(String dataEntrega, String placa, boolean isAlugado) throws SQLException {
         String sql = "UPDATE carros SET estadoAlugado = ?, dataEntregar = ? WHERE placa = ?";
         try (
             Connection conn = this.connect();
@@ -40,7 +72,7 @@ public class Update {
 
             // set the corresponding param
             pstmt.setBoolean(1, isAlugado);
-            pstmt.setDate(2, dataEntrega);
+            pstmt.setString(2, dataEntrega);
             pstmt.setString(3, placa);
             // update 
             pstmt.executeUpdate();
@@ -48,7 +80,7 @@ public class Update {
             System.out.println(e.getMessage());
         }
     }
-    public void updateMotos(Date dataEntrega, String placa, boolean isAlugado) throws SQLException {
+    public void updateMotos(String dataEntrega, String placa, boolean isAlugado) throws SQLException {
         String sql = "UPDATE motos SET estadoAlugado = ?, dataEntregar = ? WHERE placa = ?";
         try (
             Connection conn = this.connect();
@@ -56,7 +88,7 @@ public class Update {
 
             // set the corresponding param
             pstmt.setBoolean(1, isAlugado);
-            pstmt.setDate(2, dataEntrega);
+            pstmt.setString(2, dataEntrega);
             pstmt.setString(3, placa);
             // update 
             pstmt.executeUpdate();
