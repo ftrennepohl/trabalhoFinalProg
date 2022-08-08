@@ -38,6 +38,11 @@ public class AlugarVeiculo extends javax.swing.JFrame {
         {
             if(listaCarros.get(i).get(6).equals(placa))
             {
+                //Checa se já ta sendo alugado
+                if(listaCarros.get(i).get(4).equals("Alugado"))
+                {
+                    JOptionPane.showMessageDialog(null, "Carro já alugado");
+                }
                 return true;
             }
         }
@@ -46,8 +51,13 @@ public class AlugarVeiculo extends javax.swing.JFrame {
     private boolean existsPlacaMoto(String placa) throws Exception{
         for(int i = 0; i < this.listaMotos.size(); i++)
         {
-            if(listaCarros.get(i).get(6).equals(placa))
+            if(listaMotos.get(i).get(6).equals(placa))
             {
+                //Checa se já ta sendo alugado
+                if(listaMotos.get(i).get(4).equals("Alugado"))
+                {
+                    JOptionPane.showMessageDialog(null, "Moto já alugada");
+                }
                 return true;
             }
         }
@@ -58,11 +68,14 @@ public class AlugarVeiculo extends javax.swing.JFrame {
         {
             if(listaClientes.get(i).get(3).equals(cpf))
             {
+                
                 return true;
             }
         }
         return false;
     }
+    
+
     
 //    private boolean tipoCorretoCnh(String cpf, String cnh) throws Exception{
 //        DBController db = new DBController("dbTrab.db");
@@ -229,6 +242,7 @@ public class AlugarVeiculo extends javax.swing.JFrame {
                     System.out.println(cpfCliente.getText());
                     Update app = new Update();
                     app.updateCarros(transformToDate(dataEntrega.getText()), placaVeiculo.getText(), true);
+                    app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
                     System.out.println("YAY");
                 }
             } catch (Exception ex) {
@@ -245,20 +259,12 @@ public class AlugarVeiculo extends javax.swing.JFrame {
                     System.out.println(cpfCliente.getText());
                     Update app = new Update();
                     app.updateMotos(transformToDate(dataEntrega.getText()), placaVeiculo.getText(), true);
+                    app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
                 }
             } catch (Exception ex) {
                 Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }
-        try {
-            if (existsPlacaCarro(placaVeiculo.getText())&&existsCPF(cpfCliente.getText())){
-                Update app = new Update();
-                app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
-                System.out.println("YAY2");
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
         super.dispose();
 
