@@ -49,7 +49,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTableAlugados = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tbpClientes = new javax.swing.JTable();
+        jTableClientes = new javax.swing.JTable();
         btnPesquisarClientes = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -160,7 +160,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jTabbedPane1.setBackground(new java.awt.Color(51, 51, 51));
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Veiculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Liberation Sans", 0, 15), new java.awt.Color(255, 255, 255))); // NOI18N
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Veiculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jTabbedPane1.setToolTipText("");
 
         jTableCarros.setModel(new javax.swing.table.DefaultTableModel(
@@ -168,18 +168,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Marca", "Modelo", "Preço", "Data de Entrega", "Status"
+                "Marca", "Modelo", "Preço", "Data de Entrega", "Status", "Placa"
             }
         ));
         jScrollPane1.setViewportView(jTableCarros);
         if (jTableCarros.getColumnModel().getColumnCount() > 0) {
-            jTableCarros.getColumnModel().getColumn(0).setHeaderValue("Marca");
-            jTableCarros.getColumnModel().getColumn(1).setHeaderValue("Modelo");
             jTableCarros.getColumnModel().getColumn(2).setResizable(false);
-            jTableCarros.getColumnModel().getColumn(2).setHeaderValue("Preço");
             jTableCarros.getColumnModel().getColumn(3).setResizable(false);
-            jTableCarros.getColumnModel().getColumn(3).setHeaderValue("Data de Entrega");
-            jTableCarros.getColumnModel().getColumn(4).setHeaderValue("Status");
         }
 
         jButton1.setText("Pesquisar");
@@ -227,7 +222,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Marca", "Modelo", "Preço", "Data livre/Ocupado", "Status"
+                "Marca", "Modelo", "Preço", "Data livre/Ocupado", "Status", "Placa"
             }
         ));
         jScrollPane5.setViewportView(jTableMotos);
@@ -273,7 +268,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Marca", "Modelo", "Preço", "Data Alugado", "Status"
+                "ID", "Marca", "Modelo", "Preço", "Data Alugado", "Status", "placa"
             }
         ));
         jScrollPane3.setViewportView(jTableAlugados);
@@ -300,7 +295,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Alugados", jPanel6);
 
-        tbpClientes.setModel(new javax.swing.table.DefaultTableModel(
+        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -308,7 +303,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 "Nome", "Idade", "CPF", "Placa do veiculo alugado"
             }
         ));
-        jScrollPane4.setViewportView(tbpClientes);
+        jScrollPane4.setViewportView(jTableClientes);
 
         btnPesquisarClientes.setText("Pesquisar");
         btnPesquisarClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -420,9 +415,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         List<List<String>> list = db.selectAllCarros();
         for(int i = 0; i < list.size(); i++)
         {
-            String data[] = {list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)};
             DefaultTableModel model = (DefaultTableModel) jTableCarros.getModel();
-            model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)});
+            model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4), list.get(i).get(6)});
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -434,9 +428,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         List<List<String>> list = db.selectAllMotos();
         for(int i = 0; i < list.size(); i++)
         {
-            String data[] = {list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)};
             DefaultTableModel model = (DefaultTableModel) jTableMotos.getModel();
-            model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)});
+            model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4), list.get(i).get(6)});
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -449,7 +442,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         {
             if(list.get(i).get(4).equals("Alugado")){
                 DefaultTableModel model = (DefaultTableModel) jTableAlugados.getModel();
-                model.addRow(new Object[]{list.get(i).get(5),list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4)});
+                model.addRow(new Object[]{list.get(i).get(5),list.get(i).get(0), list.get(i).get(1), list.get(i).get(2), list.get(i).get(3), list.get(i).get(4), list.get(i).get(6)});
             }
         }
         
@@ -458,13 +451,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         {
             if(list2.get(j).get(4).equals("Alugado")){
                 DefaultTableModel model = (DefaultTableModel) jTableAlugados.getModel();
-                model.addRow(new Object[]{list2.get(j).get(5), list2.get(j).get(0), list2.get(j).get(1), list2.get(j).get(2), list2.get(j).get(3), list2.get(j).get(4)});
+                model.addRow(new Object[]{list2.get(j).get(5), list2.get(j).get(0), list2.get(j).get(1), list2.get(j).get(2), list2.get(j).get(3), list2.get(j).get(4), list2.get(j).get(6)});
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnPesquisarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClientesActionPerformed
-        // TODO add your handling code here:
+        DBController db = new DBController("dbTrab.db");
+        DefaultTableModel dtm = (DefaultTableModel) jTableMotos.getModel();
+        dtm.setRowCount(0);
+        List<List<String>> list = db.selectAllClientes();
+        for(int i = 0; i < list.size(); i++)
+        {
+            DefaultTableModel model = (DefaultTableModel) jTableClientes.getModel();
+            model.addRow(new Object[]{list.get(i).get(0), list.get(i).get(1), list.get(i).get(3), list.get(i).get(5)});
+        }
     }//GEN-LAST:event_btnPesquisarClientesActionPerformed
 
     /*
@@ -519,7 +520,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTableAlugados;
     private javax.swing.JTable jTableCarros;
+    private javax.swing.JTable jTableClientes;
     private javax.swing.JTable jTableMotos;
-    private javax.swing.JTable tbpClientes;
     // End of variables declaration//GEN-END:variables
 }

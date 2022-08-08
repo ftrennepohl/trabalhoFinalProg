@@ -246,6 +246,7 @@ public class DBController {
                  }
                  
                  innerList.add(rs.getString("idCliente"));
+                 innerList.add(rs.getString("placa"));
                  listOfLists.add(innerList);
              }
        }
