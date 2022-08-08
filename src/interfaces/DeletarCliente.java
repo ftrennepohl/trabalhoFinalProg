@@ -129,7 +129,7 @@ public class DeletarCliente extends javax.swing.JFrame {
         try {
             if(!existsCPF(cpf.getText()))
             {
-                JOptionPane.showMessageDialog(null, "Placa Inválida");
+                JOptionPane.showMessageDialog(null, "CPF Inválido");
             }
         } catch (Exception ex) {
             Logger.getLogger(DeletarCliente.class.getName()).log(Level.SEVERE, null, ex);
