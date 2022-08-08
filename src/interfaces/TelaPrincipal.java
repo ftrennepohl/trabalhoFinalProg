@@ -472,11 +472,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlugarActionPerformed
 
     private void btnCadastrar3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrar3MouseEntered
-        // TODO add your handling code here:
+        btnCadastrar3.setContentAreaFilled(false);
+        btnCadastrar3.setOpaque(true);
+        btnCadastrar3.setBackground(Color.DARK_GRAY);
     }//GEN-LAST:event_btnCadastrar3MouseEntered
 
     private void btnCadastrar3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrar3MouseExited
-        // TODO add your handling code here:
+        btnCadastrar3.setBackground(Color.getHSBColor(0, 0, 0));
     }//GEN-LAST:event_btnCadastrar3MouseExited
 
     private void btnCadastrar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrar3ActionPerformed
@@ -556,11 +558,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlugar4ActionPerformed
 
     private void btnDelClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelClienteMouseEntered
-        // TODO add your handling code here:
+        btnDelCliente.setContentAreaFilled(false);
+        btnDelCliente.setOpaque(true);
+        btnDelCliente.setBackground(Color.DARK_GRAY);
     }//GEN-LAST:event_btnDelClienteMouseEntered
 
     private void btnDelClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelClienteMouseExited
- 
+        btnDelCliente.setBackground(Color.getHSBColor(0, 0, 0));
     }//GEN-LAST:event_btnDelClienteMouseExited
 
     private void btnDelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelClienteActionPerformed
@@ -568,11 +572,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelClienteActionPerformed
 
     private void DelVeiculoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DelVeiculoMouseEntered
-        // TODO add your handling code here:
+        DelVeiculo.setContentAreaFilled(false);
+        DelVeiculo.setOpaque(true);
+        DelVeiculo.setBackground(Color.DARK_GRAY);
     }//GEN-LAST:event_DelVeiculoMouseEntered
 
     private void DelVeiculoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DelVeiculoMouseExited
-        // TODO add your handling code here:
+        DelVeiculo.setBackground(Color.getHSBColor(0, 0, 0));
     }//GEN-LAST:event_DelVeiculoMouseExited
 
     private void DelVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DelVeiculoActionPerformed
