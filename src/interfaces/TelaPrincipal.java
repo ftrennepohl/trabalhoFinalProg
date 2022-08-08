@@ -271,7 +271,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Marca", "Modelo", "Preço", "Data livre/Ocupado", "Status", "Placa"
+                "Marca", "Modelo", "Preço", "Data de Entrega", "Status", "Placa"
             }
         ));
         jScrollPane5.setViewportView(jTableMotos);
@@ -328,7 +328,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Marca", "Modelo", "Preço", "Data Alugado", "Status", "placa"
+                "Marca", "Modelo", "Preço", "Data de Entrega", "Status", "Placa"
             }
         ));
         jScrollPane3.setViewportView(jTableAlugados);

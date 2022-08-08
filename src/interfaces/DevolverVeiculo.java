@@ -195,6 +195,10 @@ public class DevolverVeiculo extends javax.swing.JFrame {
                     String cpf = getClienteAlugandoCarro(placa.getText());
                     app.updateClientes(cpf, "");
                 }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Placa inválida");
+                }
             } catch (Exception ex) {
                 Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -208,6 +212,10 @@ public class DevolverVeiculo extends javax.swing.JFrame {
                     app.updateMotos("", placa.getText(), false);
                     String cpf = getClienteAlugandoMoto(placa.getText());
                     app.updateClientes(cpf, "");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Placa inválida");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);

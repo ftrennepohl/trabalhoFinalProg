@@ -74,7 +74,32 @@ public class AlugarVeiculo extends javax.swing.JFrame {
         }
         return false;
     }
-    
+    private boolean isClienteAlugandoCarro(String placa) throws Exception{
+        for(int i = 0; i < this.listaCarros.size(); i++)
+        {
+           if(listaCarros.get(i).get(5).equals(placa))
+           {
+               if(!listaCarros.get(i).get(3).equals("")){
+                return false;
+               }
+           }
+        }
+        JOptionPane.showMessageDialog(null, "Cliente já alugando"); 
+        return true;
+    }
+    private boolean isClienteAlugandoMoto(String placa) throws Exception{
+        for(int i = 0; i < this.listaMotos.size(); i++)
+        {
+           if(listaMotos.get(i).get(5).equals(placa))
+           {
+               if(!listaCarros.get(i).get(3).equals("")){
+                    return false;
+               }
+           }
+        }
+        JOptionPane.showMessageDialog(null, "Cliente já alugando");
+        return true;
+    }
 
     
 //    private boolean tipoCorretoCnh(String cpf, String cnh) throws Exception{
@@ -235,16 +260,19 @@ public class AlugarVeiculo extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (isCarro.isSelected()){
-               System.out.println(placaVeiculo.getText());
             try {
                 if (existsPlacaCarro(placaVeiculo.getText())&&existsCPF(cpfCliente.getText()))
                 {
-                    System.out.println(placaVeiculo.getText());
-                    System.out.println(cpfCliente.getText());
-                    Update app = new Update();
-                    app.updateCarros(dataEntrega.getText(), placaVeiculo.getText(), true);
-                    app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
-                    System.out.println("YAY");
+                    if(!isClienteAlugandoCarro(placaVeiculo.getText())&&!isClienteAlugandoMoto(placaVeiculo.getText())){
+                        Update app = new Update();
+                        app.updateCarros(dataEntrega.getText(), placaVeiculo.getText(), true);
+                        app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
+                    }
+                    else
+                    {
+                        super.dispose();
+                        return;
+                    }
                 }
             } catch (Exception ex) {
                 Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
@@ -252,15 +280,19 @@ public class AlugarVeiculo extends javax.swing.JFrame {
 
         }
         if (isMoto.isSelected()){
-               System.out.println(placaVeiculo.getText());
             try {
                 if (existsPlacaMoto(placaVeiculo.getText())&&existsCPF(cpfCliente.getText()))
                 {
-                    System.out.println(placaVeiculo.getText());
-                    System.out.println(cpfCliente.getText());
-                    Update app = new Update();
-                    app.updateMotos(dataEntrega.getText(), placaVeiculo.getText(), true);
-                    app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
+                    if(!isClienteAlugandoCarro(placaVeiculo.getText())&&!isClienteAlugandoMoto(placaVeiculo.getText())){
+                        Update app = new Update();
+                        app.updateMotos(dataEntrega.getText(), placaVeiculo.getText(), true);
+                        app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
+                    }
+                    else
+                    {
+                        super.dispose();
+                        return;
+                    }
                 }
             } catch (Exception ex) {
                 Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);

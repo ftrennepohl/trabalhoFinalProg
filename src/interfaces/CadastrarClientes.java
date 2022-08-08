@@ -239,7 +239,7 @@ public class CadastrarClientes extends javax.swing.JFrame {
             if(!CpfExiste(cpfCliente)){
                 Cliente cliente  = new Cliente(idCliente, nome.getText(), getSelectedButtonText(buttonGroup1), idadeCliente, cpfCliente, "", getSelectedButtonText(buttonGroup2));
                 db.conectarNoBanco();
-                db.salvarClienteBD(nome.getText(), idadeCliente, getSelectedButtonText(buttonGroup1), cpfCliente, idCliente, null, getSelectedButtonText(buttonGroup2));
+                db.salvarClienteBD(nome.getText(), idadeCliente, getSelectedButtonText(buttonGroup1), cpfCliente, idCliente, "", getSelectedButtonText(buttonGroup2));
                 super.dispose();
                 db.desconectarDoBanco();
             } else JOptionPane.showMessageDialog(new JFrame(), "CPF já cadastrado.");
