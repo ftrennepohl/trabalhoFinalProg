@@ -196,23 +196,23 @@ public class DBController {
 
              // loop through the result set
              while (rs.next()) {
-                 List<String> innerList = new ArrayList<>();
-                 innerList.add(rs.getString("marca"));
-                 innerList.add(rs.getString("modelo"));
-                 innerList.add(rs.getString("preco"));
-                 innerList.add(rs.getString("dataEntregar"));
-                 if(rs.getBoolean("estadoAlugado"))
-                 {
-                    innerList.add("Alugado");
-                 }
-                 else
-                 {
-                    innerList.add("Disponível");                    
-                 }
-                 innerList.add(rs.getString("idCliente"));
-                 innerList.add(rs.getString("placa"));
-                 listOfLists.add(innerList);
-             }
+                List<String> innerList = new ArrayList<>();
+                innerList.add(rs.getString("marca"));
+                innerList.add(rs.getString("modelo"));
+                innerList.add(rs.getString("preco"));
+                innerList.add(rs.getString("dataEntregar"));
+                if(rs.getBoolean("estadoAlugado"))
+                {
+                   innerList.add("Alugado");
+                }
+                else
+                {
+                   innerList.add("Disponível");                    
+                }
+                innerList.add(rs.getString("idCliente"));
+                innerList.add(rs.getString("placa"));
+                listOfLists.add(innerList);
+            }
        }
        catch(Exception e)
        {

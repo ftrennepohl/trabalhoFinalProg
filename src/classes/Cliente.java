@@ -45,7 +45,6 @@ public class Cliente {
                 j++;
             }
             aux[k] = Character.forDigit(((soma*10)%11)%10, 10);
-            System.out.println(aux[k]);
             soma = j = 0;
             len = 11;
             k++;

@@ -164,9 +164,9 @@ public class DevolverVeiculo extends javax.swing.JFrame {
     private String getClienteAlugandoCarro(String placa) throws Exception{
         for(int i = 0; i < this.listaCarros.size(); i++)
         {
-           if(listaCarros.get(i).get(5).equals(placa))
+           if(listaCarros.get(i).get(6).equals(placa))
            {
-               return listaCarros.get(i).get(3);
+               return listaClientes.get(i).get(3);
            }
         }
         
@@ -175,9 +175,9 @@ public class DevolverVeiculo extends javax.swing.JFrame {
     private String getClienteAlugandoMoto(String placa) throws Exception{
         for(int i = 0; i < this.listaMotos.size(); i++)
         {
-           if(listaMotos.get(i).get(5).equals(placa))
+           if(listaMotos.get(i).get(6).equals(placa))
            {
-               return listaMotos.get(i).get(3);
+               return listaClientes.get(i).get(3);
            }
         }
         
@@ -193,6 +193,7 @@ public class DevolverVeiculo extends javax.swing.JFrame {
                     Update app = new Update();
                     app.updateCarros("", placa.getText(), false);
                     String cpf = getClienteAlugandoCarro(placa.getText());
+                    System.out.println("cpf: " + cpf);
                     app.updateClientes(cpf, "");
                 }
                 else

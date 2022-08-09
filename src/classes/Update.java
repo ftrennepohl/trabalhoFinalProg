@@ -26,7 +26,6 @@ public class Update {
         try {
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
-            System.out.println("Hey");
             System.out.println(e.getMessage());
         }
         return conn;

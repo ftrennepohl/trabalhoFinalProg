@@ -32,73 +32,82 @@ public class AlugarVeiculo extends javax.swing.JFrame {
     public AlugarVeiculo() {
         initComponents();
     }
-    private boolean existsPlacaCarro(String placa) throws Exception{
+    
+    private boolean carroExisteEDisponivel(String placa) throws Exception{
+        boolean placaExiste = false;
 
-        for(int i = 0; i < this.listaCarros.size(); i++)
-        {
-            if(listaCarros.get(i).get(6).equals(placa))
-            {
-                //Checa se já ta sendo alugado
-                if(listaCarros.get(i).get(4).equals("Alugado"))
-                {
-                    JOptionPane.showMessageDialog(null, "Carro já alugado");
+        for(int i = 0; i < this.listaCarros.size(); i++){
+            if(listaCarros.get(i).get(6).equals(placa)){
+                placaExiste = true;
+                if(listaCarros.get(i).get(4).equals("Alugado")){
+                    JOptionPane.showMessageDialog(null, "Carro já alugado.");
+                    return false;
                 }
-                return true;
             }
         }
-        return false;
+        if (!placaExiste){
+            JOptionPane.showMessageDialog(null, "Veículo com a placa informada não existe.");
+            return false;
+        }
+        return true;
     }
-    private boolean existsPlacaMoto(String placa) throws Exception{
-        for(int i = 0; i < this.listaMotos.size(); i++)
-        {
-            if(listaMotos.get(i).get(6).equals(placa))
-            {
-                //Checa se já ta sendo alugado
-                if(listaMotos.get(i).get(4).equals("Alugado"))
-                {
-                    JOptionPane.showMessageDialog(null, "Moto já alugada");
+    private boolean motoExisteEDisponivel(String placa) throws Exception{
+        boolean placaExiste = false;
+
+        for(int i = 0; i < this.listaMotos.size(); i++){
+            if(listaMotos.get(i).get(6).equals(placa)){
+                placaExiste = true;
+                if(listaMotos.get(i).get(4).equals("Alugado")){
+                    JOptionPane.showMessageDialog(null, "Moto já alugada.");
+                    return false;
                 }
-                return true;
             }
         }
-        return false;
+        if (!placaExiste){
+            JOptionPane.showMessageDialog(null, "Veículo com a placa informada não existe.");
+            return false;
+        }
+        return true;
     }
     private boolean existsCPF(String cpf) throws Exception{
         for(int i = 0; i < this.listaClientes.size(); i++)
         {
-            if(listaClientes.get(i).get(3).equals(cpf))
-            {
-                
+            if(listaClientes.get(i).get(3).equals(cpf)){
                 return true;
             }
         }
+        JOptionPane.showMessageDialog(null, "O CPF informado não existe.");
         return false;
     }
-    private boolean isClienteAlugandoCarro(String placa) throws Exception{
-        for(int i = 0; i < this.listaCarros.size(); i++)
-        {
-           if(listaCarros.get(i).get(5).equals(placa))
-           {
-               if(!listaCarros.get(i).get(3).equals("")){
+    private boolean isClienteAlugando(String nome) throws Exception{
+        for(int i = 0; i < this.listaClientes.size(); i++){
+            if(listaClientes.get(i).get(0).equals(nome) && listaClientes.get(i).get(5).equals("")) {
                 return false;
-               }
-           }
+            }
         }
-        JOptionPane.showMessageDialog(null, "Cliente já alugando"); 
+        JOptionPane.showMessageDialog(null, "Cliente já possui um aluguel ativo."); 
         return true;
     }
-    private boolean isClienteAlugandoMoto(String placa) throws Exception{
-        for(int i = 0; i < this.listaMotos.size(); i++)
-        {
-           if(listaMotos.get(i).get(5).equals(placa))
-           {
-               if(!listaCarros.get(i).get(3).equals("")){
-                    return false;
-               }
-           }
+    
+    private String getNome(String cpf){
+        for(int i = 0; i < this.listaClientes.size(); i++){
+            if(listaClientes.get(i).get(3).equals(cpf)) return listaClientes.get(i).get(0);
         }
-        JOptionPane.showMessageDialog(null, "Cliente já alugando");
-        return true;
+        return null;
+    }
+    
+    private boolean tipoCnhCertoCarro(String cpf){
+        for(int i = 0; i < this.listaClientes.size(); i++)
+            if(listaClientes.get(i).get(3).equals(cpf) && (listaClientes.get(i).get(6).equals("B") || listaClientes.get(i).get(6).equals("AB"))) return true;
+        JOptionPane.showMessageDialog(null, "A categoria da CNH do cliente não corresponde ao veículo."); 
+        return false;
+    }
+        
+    private boolean tipoCnhCertoMoto(String cpf){
+        for(int i = 0; i < this.listaClientes.size(); i++)
+            if(listaClientes.get(i).get(3).equals(cpf) && (listaClientes.get(i).get(6).equals("A") || listaClientes.get(i).get(6).equals("AB"))) return true;
+        JOptionPane.showMessageDialog(null, "A categoria da CNH do cliente não corresponde ao veículo."); 
+        return false;
     }
 
     
@@ -261,18 +270,10 @@ public class AlugarVeiculo extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (isCarro.isSelected()){
             try {
-                if (existsPlacaCarro(placaVeiculo.getText())&&existsCPF(cpfCliente.getText()))
-                {
-                    if(!isClienteAlugandoCarro(placaVeiculo.getText())&&!isClienteAlugandoMoto(placaVeiculo.getText())){
-                        Update app = new Update();
-                        app.updateCarros(dataEntrega.getText(), placaVeiculo.getText(), true);
-                        app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
-                    }
-                    else
-                    {
-                        super.dispose();
-                        return;
-                    }
+                if (existsCPF(cpfCliente.getText()) && carroExisteEDisponivel(placaVeiculo.getText()) && !isClienteAlugando(getNome(cpfCliente.getText())) && tipoCnhCertoCarro(cpfCliente.getText())){
+                    Update app = new Update();
+                    app.updateCarros(dataEntrega.getText(), placaVeiculo.getText(), true);
+                    app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
                 }
             } catch (Exception ex) {
                 Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
@@ -281,18 +282,10 @@ public class AlugarVeiculo extends javax.swing.JFrame {
         }
         if (isMoto.isSelected()){
             try {
-                if (existsPlacaMoto(placaVeiculo.getText())&&existsCPF(cpfCliente.getText()))
-                {
-                    if(!isClienteAlugandoCarro(placaVeiculo.getText())&&!isClienteAlugandoMoto(placaVeiculo.getText())){
-                        Update app = new Update();
-                        app.updateMotos(dataEntrega.getText(), placaVeiculo.getText(), true);
-                        app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
-                    }
-                    else
-                    {
-                        super.dispose();
-                        return;
-                    }
+                if (existsCPF(cpfCliente.getText()) && motoExisteEDisponivel(placaVeiculo.getText()) && !isClienteAlugando(getNome(cpfCliente.getText())) && tipoCnhCertoMoto(cpfCliente.getText())){
+                    Update app = new Update();
+                    app.updateMotos(dataEntrega.getText(), placaVeiculo.getText(), true);
+                    app.updateClientes(cpfCliente.getText(), placaVeiculo.getText());
                 }
             } catch (Exception ex) {
                 Logger.getLogger(AlugarVeiculo.class.getName()).log(Level.SEVERE, null, ex);
@@ -304,10 +297,6 @@ public class AlugarVeiculo extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private Date transformToDate(String str){
-        Date date = Date.valueOf(str);
-        return date;
-    }
     
     /**
      * @param args the command line arguments
